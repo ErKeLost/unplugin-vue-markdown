@@ -18,7 +18,7 @@ export const unpluginFactory: UnpluginFactory<Options> = (userOptions = {}) => {
 
   return {
     name: 'unplugin-vue-markdown',
-    enforce: 'pre',
+    // enforce: 'pre',
     transformInclude(id) {
       return filter(id)
     },
@@ -41,6 +41,19 @@ export const unpluginFactory: UnpluginFactory<Options> = (userOptions = {}) => {
         }
       },
     },
+    farm: {
+      updateModules: {
+        async executor(ctx) {
+          if (!filter(ctx.file))
+            return
+
+          const defaultRead = ctx.read
+          ctx.read = async function () {
+            return (await markdownToVue(ctx.file, await defaultRead())).code
+          }
+        }
+      }
+    }
   }
 }
 

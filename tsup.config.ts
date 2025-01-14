@@ -6,7 +6,7 @@ export default <Options>{
   ],
   clean: true,
   format: ['cjs', 'esm'],
-  dts: true,
+  // dts: true,
   shims: true,
   splitting: true,
   onSuccess: 'npm run build:fix',
