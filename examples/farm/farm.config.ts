@@ -8,10 +8,6 @@ import Vue from 'unplugin-vue/farm'
 
 export default defineConfig({
   plugins: [
-    Vue({
-      include: [/\.vue$/, /\.md$/],
-    }),
-    base(),
     Markdown({
       markdownItOptions: {
 
@@ -21,6 +17,12 @@ export default defineConfig({
         prism,
       ],
     }),
+    Vue({
+      include: [/\.vue$/, /\.md$/],
+    }),
+
+    base(),
+
   ],
   compilation: {
     progress: false,

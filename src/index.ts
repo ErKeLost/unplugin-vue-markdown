@@ -42,7 +42,6 @@ export const unpluginFactory: UnpluginFactory<Options> = (userOptions = {}) => {
       },
     },
     farm: {
-      priority: 103,
       load: {
         filters: {
           resolvedPaths: ['.md'],
