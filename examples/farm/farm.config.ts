@@ -12,16 +12,15 @@ export default defineConfig({
       include: [/\.vue$/, /\.md$/],
     }),
     base(),
-    base2(),
-    // Markdown({
-    //   markdownItOptions: {
+    Markdown({
+      markdownItOptions: {
 
-    //   },
-    //   headEnabled: true,
-    //   markdownItUses: [
-    //     prism,
-    //   ],
-    // }),
+      },
+      headEnabled: true,
+      markdownItUses: [
+        prism,
+      ],
+    }),
   ],
   compilation: {
     progress: false,
@@ -46,33 +45,5 @@ function base() {
         }
       },
     },
-  }
-}
-
-
-function base2() {
-  return {
-    name: 'farm-load-md-module-type',
-    priority: -99,
-    load: {
-      filters: {
-        resolvedPaths: ['.md'],
-      },
-      executor: async (param) => {
-        const content = await fs.readFile(param.resolvedPath, 'utf-8')
-        return {
-          content,
-          moduleType: 'js',
-        }
-      },
-    },
-    transform: {
-      filters: {
-        resolvedPaths: ['.*'],
-      },
-      executor: async (param) => {
-        console.log(param.resolvedPath);
-      },
-    }
   }
 }

@@ -4,7 +4,7 @@ import { createFilter } from '@rollup/pluginutils'
 import { createUnplugin } from 'unplugin'
 import { createMarkdown } from './core/markdown'
 import { resolveOptions } from './core/options'
-
+import fs from 'node:fs/promises'
 const cssIdRE = /\.(css|postcss|sass|scss|less|stylus|styl)($|\?)/
 
 export const unpluginFactory: UnpluginFactory<Options> = (userOptions = {}) => {
@@ -18,7 +18,7 @@ export const unpluginFactory: UnpluginFactory<Options> = (userOptions = {}) => {
 
   return {
     name: 'unplugin-vue-markdown',
-    // enforce: 'pre',
+    enforce: 'pre',
     transformInclude(id) {
       return filter(id)
     },
@@ -42,6 +42,19 @@ export const unpluginFactory: UnpluginFactory<Options> = (userOptions = {}) => {
       },
     },
     farm: {
+      priority: 103,
+      load: {
+        filters: {
+          resolvedPaths: ['.md'],
+        },
+        executor: async (param) => {
+          const content = await fs.readFile(param.resolvedPath, 'utf-8')
+          return {
+            content,
+            moduleType: 'md',
+          }
+        },
+      },
       updateModules: {
         async executor(ctx) {
           if (!filter(ctx.file))

@@ -2,7 +2,7 @@
 
 [![NPM version](https://img.shields.io/npm/v/unplugin-vue-markdown?color=a1b858)](https://www.npmjs.com/package/unplugin-vue-markdown)
 
-Compile Markdown to Vue component.
+Compile Markdown to Vu12312313e component.
 
 - 📚 Use Markdown as Vue components.
 - 💚 Use Vue components in Markdown.
